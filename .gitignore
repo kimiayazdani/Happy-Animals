@@ -107,6 +107,9 @@ media/
 *.db
 *.pid
 
+.idea
+.idea/
+*.xml
 # Ignore Django Migrations in Development if you are working on team
 
 # Only for Development only
