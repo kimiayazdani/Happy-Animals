@@ -10,7 +10,7 @@ from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls'), name='rest_framework'),
-    # path('post/', include('Post.urls')),
+    path('api/v1/adoption/', include('adoption.urls')),
     # path('channel/', include('channel.urls')),
     path('api/v1/account/', include('account_management.urls_v1')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth')

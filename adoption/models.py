@@ -29,8 +29,7 @@ class Post(TimeModel):
     description = models.TextField(verbose_name='توضیحات')
     author = models.ForeignKey(Account, on_delete=models.CASCADE, verbose_name='نویسنده')
     pet_image = models.ImageField(upload_to="", blank=True, verbose_name='تصویر')
-    likes = models.ManyToManyField(Account, blank=True, related_name='liked_posts')
-    tags = ArrayField(models.CharField(max_length=200), blank=True)
+    tags = ArrayField(models.CharField(max_length=200), blank=True, null=True)
 
     def __str__(self):
         return self.title

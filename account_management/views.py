@@ -30,39 +30,6 @@ class Logout(APIView):
         data = {'Response': 'successful'}
         return Response(data)
 
-#
-# class GoogleView(APIView):
-#     permission_classes = ()
-#     authentication_classes = ()
-#
-#     def post(self, request):
-#         payload = {'access_token': request.data.get("token")}  # validate the token
-#         hashed = request.data.get("token")
-#         r = requests.get('https://www.googleapis.com/oauth2/v2/userinfo', params=payload)
-#         data = json.loads(r.text)
-#
-#         if 'error' in data:
-#             content = {'message': 'wrong google token / this google token is already expired.'}
-#             return Response(data=content, status=status.HTTP_403_FORBIDDEN)
-#
-#         # create user if not exist
-#         try:
-#             user = Account.objects.get(email=data['email'])
-#         except Account.DoesNotExist:
-#             user = Account()
-#             user.username = data['email']
-#             # provider random default password
-#             user.password = data['email'] + hashed[0:4]
-#             user.email = data['email']
-#             user.save()
-#
-#         token = RefreshToken.for_user(user)  # generate token without username & password
-#         response = {}
-#         response['username'] = user.username
-#         response['access_token'] = str(token.access_token)
-#         response['refresh_token'] = str(token)
-#         return Response(response, status=status.HTTP_200_OK)
-#
 
 @api_view(['POST', ])
 @authentication_classes([])
