@@ -20,14 +20,16 @@ import "./Posts.css";
 
 class Post extends Component {
 
+
+
+
   state = {
-    title:"واگذاری سگ هاسکی",
-    labels : ["سگ","نر","هاسکی"],
-    image:"/static/images/wolf.jpg",
-    description:"کاملا آموزش دیدست و جای دست‌شوییشو بلده، خیلی مهربونه و به محبت نیاز داره خیلی شیطونه و\n" +
-        "                              همش بپر بپر میکنه اما بچه‌ی مودبیه و وقتی خونه نیستیم پارس نمیکنه. به همراه قلاده و پت\n" +
-        "                              کریر و اسباب بازی‌های مورد علاقش واگذار میشه",
+    title: this.props.title,
+    labels : this.props.labels,
+    image:this.props.image,
+    description:this.props.description,
   };
+
   handleSubmit = (e) => { 
       e.preventDefault(); 
 
@@ -51,7 +53,7 @@ class Post extends Component {
   render() {
     return (
       <div className="App">
-        <Grid textAlign="center" verticalAlign="top">
+       <Grid textAlign="center" verticalAlign="top">
           <Grid.Column style={{ maxWidth: 700 }}>
             <Form size="large">
               <Segment>

@@ -21,14 +21,30 @@ import "./Posts.css";
 
 class overview extends Component {
 
+
   state = {
+    list: [{
     title:"واگذاری سگ هاسکی",
     labels : ["سگ","نر","هاسکی"],
     image:"/static/images/wolf.jpg",
     description:"کاملا آموزش دیدست و جای دست‌شوییشو بلده، خیلی مهربونه و به محبت نیاز داره خیلی شیطونه و\n" +
         "                              همش بپر بپر میکنه اما بچه‌ی مودبیه و وقتی خونه نیستیم پارس نمیکنه. به همراه قلاده و پت\n" +
         "                              کریر و اسباب بازی‌های مورد علاقش واگذار میشه",
+      },
+      {
+        title:"گربه‌ی پرشین",
+    labels : ["گربه","ماده","پرشین"],
+    image:"./../static/images/HappyAnimals.png",
+    description:"کاملا آموزش دیدست و جای دست‌شوییشو بلده، خیلی مهربونه و به محبت نیاز داره خیلی شیطونه و\n" +
+        "                              همش بپر بپر میکنه اما بچه‌ی مودبیه و وقتی خونه نیستیم پارس نمیکنه. به همراه قلاده و پت\n" +
+        "                              کریر و اسباب بازی‌های مورد علاقش واگذار میشه",
+      }]
+
+
   };
+
+  
+
   handleSubmit = (e) => { 
       e.preventDefault(); 
 
@@ -50,16 +66,25 @@ class overview extends Component {
           .catch((err) => {}); 
   }; 
   render() {
+    var indents = [];
+  for (var i = 0; i < this.state.list.length; i++) {
+      indents.push(<div> 
+        <Post hideit={1} title={this.state.list[i].title} labels={this.state.list[i].labels} 
+        image={this.state.list[i].image} description={this.state.list[i].description} />
+        <Button class="ui button" color="teal" fluid size="small"> مشاهده‌ی پست</Button>
+         </div>);
+  }
     return (
       <div className="App">
       <SideMenu redirectto={1} namepage={'Posts'}/>
-        <Post hideit={1}/>
-
-        <Post hideit={1}/>
+       <Grid textAlign="center" verticalAlign="top">
+          <Grid.Column style={{ maxWidth: 700 }}>
+        {indents}
+        </Grid.Column>
+      </Grid>
       </div>
     );
   }
 }
 
 export default overview;
-

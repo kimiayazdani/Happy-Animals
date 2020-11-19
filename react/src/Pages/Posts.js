@@ -53,7 +53,8 @@ class Posts extends Component {
     return (
       <div className="App">
       <SideMenu redirectto={1} namepage={'Posts'}/>
-      	<Post />
+      	<Post title={this.state.title} labels={this.state.labels} 
+        image={this.state.image} description={this.state.description} />
       </div>
     );
   }
