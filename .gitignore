@@ -106,7 +106,8 @@ media/
 *.pyc
 *.db
 *.pid
-
+src
+src/
 # Ignore Django Migrations in Development if you are working on team
 
 # Only for Development only
