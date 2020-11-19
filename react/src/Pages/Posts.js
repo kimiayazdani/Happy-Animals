@@ -59,15 +59,21 @@ class Posts extends Component {
                   <div>
                       <div className="header" > { this.state.title }</div>
                       <Image src={ this.state.image } className={"ui small circular image centered"} />{""}
+                      <div>
+                          <a className="ui blue image label">{ this.state.labels[0] }</a>
+                          <a className="ui teal image label">{ this.state.labels[1] }</a>
+                          <a className="ui yellow image label">{ this.state.labels[2] }</a></div>
 
                       <div className="ui aligned container">
                           <p>{ this.state.description }</p>
+
                       </div>
-                      <div className="ui labeled icon three item horizental menu">
-                          <a className="item"> <i className="like icon"></i> پسندیدم </a>
+                      <div className="ui compact menu horizental labeled icon center" >
+                          <a className="item"><i className="like icon"></i> پسندیدم </a>
                           <a className="item"> <i className="add icon"></i> تحت نظر </a>
                           <a className="item"> <i className="user circle icon"></i>مشاهده کاربر </a>
                       </div>
+
                   </div>
               </Segment>
             </Form>
