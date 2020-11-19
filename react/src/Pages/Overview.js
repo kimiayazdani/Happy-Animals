@@ -3,10 +3,10 @@ import axios from "axios";
 import {Logger, ConsoleLogger} from 'react-console-logger';
 import SideMenu from './../Components/SideMenu';
 import './Notfound.css';
-import { Divider, Image } from 'semantic-ui-react';
-import Post from './Post';
+import { Divider, Image } from 'semantic-ui-react'
 
 import "semantic-ui-css/semantic.min.css";
+import Post from './Post'
 
 import {
   Button,
@@ -19,7 +19,7 @@ import {
 
 import "./Posts.css";
 
-class Posts extends Component {
+class overview extends Component {
 
   state = {
     title:"واگذاری سگ هاسکی",
@@ -53,11 +53,13 @@ class Posts extends Component {
     return (
       <div className="App">
       <SideMenu redirectto={1} namepage={'Posts'}/>
-      	<Post />
+        <Post hideit={1}/>
+
+        <Post hideit={1}/>
       </div>
     );
   }
 }
 
-export default Posts;
+export default overview;
 

@@ -6,6 +6,7 @@ import Login from "./Pages/Login";
 import Posts from "./Pages/Posts";
 import Forum from "./Pages/Forum";
 import Logout from "./Pages/Logout";
+import Overview from "./Pages/Overview";
 
 // import history from './history';
 
@@ -17,7 +18,7 @@ class Routes extends Component {
                 <Switch>
                     <Route path="/" exact component={Login} />
                     <Route path="/SignUp" component={SignUp} />
-                    <Route path="/Posts" component={Posts} />
+                    <Route path="/Posts" component={Overview} />
                     <Route path="/Forum" component={Forum} />
                     <Route path="/Logout" component={Logout} />
                 </Switch>
