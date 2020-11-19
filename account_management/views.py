@@ -8,14 +8,10 @@ from rest_framework.authtoken.models import Token
 from .serializers import RegistrationSerializer, ChangePasswordSerializer, AccountPropertiesSerializer
 from account_management.models import Account
 from rest_framework.viewsets import ModelViewSet
-
-from rest_framework import generics, permissions, status, views
+from rest_framework import status
 from rest_framework.response import Response
 
 from django.contrib.auth import logout
-
-import requests
-import json
 
 
 class AccountView(ModelViewSet):
@@ -24,11 +20,20 @@ class AccountView(ModelViewSet):
 
 
 class Logout(APIView):
-    def get(self, request, format=None):
-        # simply delete the token to force a login
-        logout(request)
-        data = {'Response': 'successful'}
-        return Response(data)
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, request, format=None):
+        try:
+            request.user.auth_token.delete()
+            logout(request)
+            data = {'Response': 'successful'}
+            p_status = status.HTTP_200_OK
+        except Exception as e:
+            data = {'Response': 'could not find user'}
+            p_status = status.HTTP_400_BAD_REQUEST
+        finally:
+            return Response(data=data, status=p_status)
 
 
 @api_view(['POST', ])
@@ -168,6 +173,7 @@ class Login(APIView):
             context['pk'] = account.pk
             context['email'] = email.lower()
             context['image'] = str(account.avatar)
+            context['token'] = str(Token.objects.create(user=account))
             return Response(data=context, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
@@ -175,14 +181,14 @@ class Login(APIView):
 
 @api_view(['GET', ])
 @permission_classes([IsAuthenticated, ])
-@authentication_classes([])
+@authentication_classes([TokenAuthentication, ])
 def does_account_exist_view(request):
     if request.method == 'GET':
         email = request.GET['email'].lower()
         data = {}
         try:
             account = Account.objects.get(email=email)
-            data['response'] = email
+            data['response'] = 'account with email: {email} exists'.format(email=email)
         except Account.DoesNotExist:
             data['response'] = "Account does not exist"
             return Response(data=data, status=status.HTTP_403_FORBIDDEN)

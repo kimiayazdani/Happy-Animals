@@ -116,6 +116,17 @@ class PostView(ModelViewSet):
             'tags': post.tags,
             'author': post.tags,
             'comments': comments,
-            'pet_image': post.pet_image or None
+            'pet_image': post.pet_image or None,
+            'kind': post.kind
         }
         return Response(data=data, status=status.HTTP_200_OK)
+
+    def destroy(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        try:
+            post = Post.objects.get(id=pk)
+        except Post.DoesNotExist:
+            return Response(data={'object with id:{} does not exist'.format(pk)}, status=status.HTTP_404_NOT_FOUND)
+        self.perform_destroy(post)
+        print('hi')
+        return Response(data={'object deleted successfully'}, status=status.HTTP_200_OK)

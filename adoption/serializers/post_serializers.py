@@ -59,16 +59,13 @@ class PostUpdateSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'description',
-            'pet_image',
+            'kind',
             'tags',
-            'delete'
+            'pet_image',
         )
         writable_fields = ('title', 'description', 'tags', 'tags_image', 'kind')
 
     def update(self, instance: Post, validated_data):
-        delete = validated_data.pop('delete', False)
-        if delete:
-            instance.delete()
         with transaction.atomic():
             for field in self.Meta.writable_fields:
                 if field in validated_data:
