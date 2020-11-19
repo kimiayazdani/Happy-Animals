@@ -4,6 +4,7 @@ import {Logger, ConsoleLogger} from 'react-console-logger';
 import SideMenu from './../Components/SideMenu';
 import './Notfound.css';
 import { Divider, Image } from 'semantic-ui-react'
+import { Redirect } from 'react-router';
 
 import "semantic-ui-css/semantic.min.css";
 import Post from './Post'
@@ -38,12 +39,31 @@ class overview extends Component {
     description:"کاملا آموزش دیدست و جای دست‌شوییشو بلده، خیلی مهربونه و به محبت نیاز داره خیلی شیطونه و\n" +
         "                              همش بپر بپر میکنه اما بچه‌ی مودبیه و وقتی خونه نیستیم پارس نمیکنه. به همراه قلاده و پت\n" +
         "                              کریر و اسباب بازی‌های مورد علاقش واگذار میشه",
-      }]
-
+      }],
+      redirect: false,
+      topass: 0,
 
   };
 
-  
+
+        redirectHandler = (i) => {
+            this.setState({ redirect: true })
+            this.setState({ topass: i.target.value})
+            this.renderRedirect();
+        }
+        renderRedirect = () => {
+            if (this.state.redirect) {
+                return <Redirect to={{
+                  pathname: "/Post",
+                  state: {
+                    title: this.state.list[this.state.topass].title,
+                    labels: this.state.list[this.state.topass].labels,
+                    image: this.state.list[this.state.topass].image,
+                    description: this.state.list[this.state.topass].description,
+                  }
+                }} />
+            }
+        }
 
   handleSubmit = (e) => { 
       e.preventDefault(); 
@@ -69,9 +89,13 @@ class overview extends Component {
     var indents = [];
   for (var i = 0; i < this.state.list.length; i++) {
       indents.push(<div> 
+        <Grid.Row>
         <Post hideit={1} title={this.state.list[i].title} labels={this.state.list[i].labels} 
         image={this.state.list[i].image} description={this.state.list[i].description} />
-        <Button class="ui button" color="teal" fluid size="small"> مشاهده‌ی پست</Button>
+        <Button class="ui button" color="teal" value={i} fluid size="small" onClick={value => this.redirectHandler(value)}> مشاهده‌ی پست
+         </Button>
+         {this.renderRedirect()}
+        </Grid.Row>
          </div>);
   }
     return (

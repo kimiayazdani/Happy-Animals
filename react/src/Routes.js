@@ -21,6 +21,7 @@ class Routes extends Component {
                     <Route path="/Posts" component={Overview} />
                     <Route path="/Forum" component={Forum} />
                     <Route path="/Logout" component={Logout} />
+                    <Route path="/Post" render={(props) => <Posts {...props}/> }/>
                 </Switch>
             </Router>
 

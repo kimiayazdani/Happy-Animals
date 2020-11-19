@@ -22,12 +22,10 @@ import "./Posts.css";
 class Posts extends Component {
 
   state = {
-    title:"واگذاری سگ هاسکی",
-    labels : ["سگ","نر","هاسکی"],
-    image:"/static/images/wolf.jpg",
-    description:"کاملا آموزش دیدست و جای دست‌شوییشو بلده، خیلی مهربونه و به محبت نیاز داره خیلی شیطونه و\n" +
-        "                              همش بپر بپر میکنه اما بچه‌ی مودبیه و وقتی خونه نیستیم پارس نمیکنه. به همراه قلاده و پت\n" +
-        "                              کریر و اسباب بازی‌های مورد علاقش واگذار میشه",
+    title: this.props.location.state.title,
+    labels : this.props.location.state.labels,
+    image: this.props.location.state.image,
+    description: this.props.location.state.description
   };
   handleSubmit = (e) => { 
       e.preventDefault(); 
