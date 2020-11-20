@@ -65,11 +65,12 @@ def registration_view(request):
         account.save()
         ser = RegistrationSerializer(account)
         data = ser.data
-        Token.objects.create(user=account)
+        token = Token.objects.create(user=account)
         data['userId'] = account.pk
         data['profilePicture'] = account.avatar.url
         data['email'] = account.email
         data['username'] = account.username
+        data['token'] = str(token)
         return Response(data=data, status=status.HTTP_200_OK)
     else:
         data = serializer.errors
@@ -165,18 +166,18 @@ class Login(APIView):
 
     def post(self, request):
         context = {}
-        email = request.POST.get('username')
-        password = request.POST.get('password')
+        email = request.data.get('username')
+        password = request.data.get('password')
         account = authenticate(email=email, password=password)
         if account:
             context['response'] = 'Successfully authenticated.'
             context['pk'] = account.pk
             context['email'] = email.lower()
             context['image'] = str(account.avatar)
-            context['token'] = str(Token.objects.create(user=account))
+            context['token'] = str(Token.objects.get_or_create(user=account)[0])
             return Response(data=context, status=status.HTTP_200_OK)
         else:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+            return Response(status=status.HTTP_403_FORBIDDEN, data={'user did not find'})
 
 
 @api_view(['GET', ])
