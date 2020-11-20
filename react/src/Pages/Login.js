@@ -21,6 +21,7 @@ class Login extends Component {
   state = {
     user:"",
     pass:"",
+    logged_in: false,
   };
   handleInput = (e) => { 
         console.log("something")
@@ -40,7 +41,9 @@ class Login extends Component {
               this.setState({ 
                   user: "", 
                   pass: "", 
+                  logdeg_in: res.data.logged_in,
               }); 
+
           }) 
           .catch((err) => {}); 
   }; 
