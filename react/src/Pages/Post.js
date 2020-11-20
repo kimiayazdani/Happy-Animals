@@ -77,7 +77,7 @@ class Post extends Component {
                           <a className="item"> <i className="user circle icon"></i>مشاهده کاربر </a>
                       </div>
                     }
-                  
+                    
 
                   </div>
               </Segment>

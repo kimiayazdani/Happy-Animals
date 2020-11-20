@@ -21,7 +21,7 @@ class Login extends Component {
   state = {
     user:"",
     pass:"",
-    logged_in: false,
+    logged_in: 0,
   };
   handleInput = (e) => { 
         console.log("something")
@@ -41,7 +41,7 @@ class Login extends Component {
               this.setState({ 
                   user: "", 
                   pass: "", 
-                  logdeg_in: res.data.logged_in,
+                  logged_in: res.data.logged_in,
               }); 
 
           }) 
@@ -89,6 +89,7 @@ class Login extends Component {
               جدیدید؟ <a href="/SignUp">به ما بپیوندید</a>
 
             </Message>
+            <p> logged_in: {this.state.logged_in} </p>
           </Grid.Column>
         </Grid>
       </div>
