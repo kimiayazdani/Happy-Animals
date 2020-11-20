@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
 
 
 class PostView(ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    # authentication_classes = ()
+    # permission_classes = (IsAuthenticated,)
     filter_backends = (DjangoFilterBackend,)
     list_params_template = [
         _p('start', _p.datetime, default=datetime.now() - timedelta(days=90)),
@@ -121,7 +121,7 @@ class PostView(ModelViewSet):
             'start': post.description,
             'created': post.created,
             'tags': post.tags,
-            'author': post.tags,
+            'author': post.author.username,
             'comments': comments,
             'pet_image': image_src,
             'kind': post.kind
