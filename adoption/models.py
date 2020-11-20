@@ -1,12 +1,8 @@
-from django.db import models
-from account_management.models import Account
 from django.contrib.postgres.fields import ArrayField
+from django.db import models
+
 from _helpers.db import TimeModel
-
-
-def upload(instance):
-    import os
-    return os.path.join('images', instance.title)
+from account_management.models import Account
 
 
 class Post(TimeModel):

@@ -1,8 +1,9 @@
-from rest_framework.test import force_authenticate, APIRequestFactory
 from django.test import TestCase
+from rest_framework.test import force_authenticate, APIRequestFactory
+
 from account_management.models import Account
-from adoption.views import PostView
 from adoption.models import Post
+from adoption.views import PostView
 
 
 class TestPostViewSet(TestCase):

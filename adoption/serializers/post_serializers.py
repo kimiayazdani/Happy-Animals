@@ -1,19 +1,10 @@
-from rest_framework import serializers
-from adoption.models import Comment, Post
 from collections import OrderedDict
-from account_management.models import Account
+
 from django.db import transaction
+from rest_framework import serializers
 
-
-#
-# class LikeSerializer(serializers.ModelSerializer):
-#     id = serializers.IntegerField()
-#     username = serializers.CharField()
-#     email = serializers.CharField()
-#
-#     class Meta:
-#         model = Account
-#         fields = ['id', 'username', 'email']
+from account_management.models import Account
+from adoption.models import Post
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -29,7 +20,7 @@ class PostSerializer(serializers.ModelSerializer):
             'id', 'kind', 'title', 'description', 'author',
             'tags', 'pet_image'
         ]
-        read_only_fields = ('id', )
+        read_only_fields = ('id',)
 
     def get_user_id(self):
         return self.context['user_id']

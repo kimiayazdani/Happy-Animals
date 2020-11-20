@@ -1,6 +1,5 @@
 from django.contrib import admin
 from adoption.models import Comment, Post
-# Register your models here.
 
 
 class CommentAdminInline(admin.StackedInline):
