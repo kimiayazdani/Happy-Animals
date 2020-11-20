@@ -22,9 +22,10 @@ class TestAccount(TestCase):
         request = self.factory.post(
             'api/v1/account/register/',
             data={
-                'email': 'mytest@gmail.com',
-                'username': 'testtest123',
-                'password': 'Testest123'
+                'user': 'mytest@gmail.com',
+                'name': 'testtest123',
+                'pass': 'Testest123',
+                'number': '000'
             },
             format='json'
         )
@@ -39,9 +40,10 @@ class TestAccount(TestCase):
         request = self.factory.post(
             'api/v1/account/register/',
             data={
-                'email': 'testemail@gmail.com',
-                'username': 'testtfest123',
-                'password': 'Testesft123'
+                'user': 'testemail@gmail.com',
+                'name': 'testtfest123',
+                'pass': 'Testesft123',
+                'number': '09121000000'
             },
             format='json'
         )
@@ -53,9 +55,10 @@ class TestAccount(TestCase):
         request = self.factory.post(
             'api/v1/account/register/',
             data={
-                'email': 'test@gmail.com',
-                'username': 'testtfest123',
-                'password': 'test123'
+                'user': 'test@gmail.com',
+                'name': 'testtfest123',
+                'pass': 'test123',
+                'number': '9012'
             },
             format='json'
         )
@@ -67,8 +70,8 @@ class TestAccount(TestCase):
         request = self.factory.post(
             'api/v1/account/login/',
             data={
-                'username': 'testuser2@gmail.com',
-                'password': 'TestUser123'
+                'user': 'testuser2@gmail.com',
+                'pass': 'TestUser123'
             },
             format='json'
         )

@@ -43,7 +43,7 @@ class Account(AbstractBaseUser, TimeModel):
     is_superuser = models.BooleanField(default=False)
     bio = models.CharField(max_length=100, default="new to Happy-animals")
     avatar = models.ImageField(default='default_avatar.png')
-
+    phone_number = models.CharField(max_length=11, verbose_name='شماره تماس ')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
