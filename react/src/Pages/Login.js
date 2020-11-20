@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios"; 
 import {Logger, ConsoleLogger} from 'react-console-logger';
 import SideMenu from './../Components/SideMenu';
+import { Redirect } from 'react-router';
 
 import "semantic-ui-css/semantic.min.css";
 
@@ -31,6 +32,7 @@ class Login extends Component {
   }; 
   handleSubmit = (e) => { 
       e.preventDefault(); 
+      this.setState({logged_in:1})
 
       axios 
           .post("http://localhost:8000/api/v1/account/login", { 
@@ -83,6 +85,7 @@ class Login extends Component {
                 <Button type="submit" color="teal" fluid size="large">
                   وارد شوید
                 </Button>
+                {this.state.logged_in === 1 && <Redirect to="/Posts" />}
               </Segment>
             </Form>
             <Message>

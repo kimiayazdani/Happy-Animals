@@ -24,8 +24,6 @@ class Routes extends Component {
                     <Route path="/Post" render={(props) => <Posts {...props}/> }/>
                 </Switch>
             </Router>
-
-
         )
     }
 }
