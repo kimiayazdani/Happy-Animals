@@ -7,21 +7,14 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from .serializers import RegistrationSerializer, ChangePasswordSerializer, AccountPropertiesSerializer
 from account_management.models import Account
-from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from rest_framework.response import Response
-
 from django.contrib.auth import logout
 
 
-class AccountView(ModelViewSet):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated, )
-
-
 class Logout(APIView):
-    authentication_classes = (TokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
         try:
@@ -41,19 +34,21 @@ class Logout(APIView):
 def registration_view(request):
     data = {}
     email = request.data.get('email', '0').lower()
-    if validate_email(email) != None:
+
+    if validate_email(email) is not None:
         data['error_message'] = 'That email is already in use.'
         data['response'] = 'Error'
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
 
     username = request.data.get('username', '0')
-    if validate_username(username) != None:
+    if validate_username(username) is not None:
         data['error_message'] = 'That username is already in use.'
         data['response'] = 'Error'
         return Response(data=data, status=status.HTTP_403_FORBIDDEN)
+
     password = request.data.get('password', '0')
     val = validate_password(password)
-    if val[0] == None:
+    if val[0] is None:
         data['error_message'] = val[1]
         data['response'] = 'Error'
         return Response(data, status=status.HTTP_403_FORBIDDEN)
@@ -71,6 +66,7 @@ def registration_view(request):
         data['email'] = account.email
         data['username'] = account.username
         data['token'] = str(token)
+
         return Response(data=data, status=status.HTTP_200_OK)
     else:
         data = serializer.errors
@@ -143,7 +139,7 @@ def account_properties_view(request):
 
 @api_view(['PUT', ])
 @permission_classes((IsAuthenticated,))
-@authentication_classes((TokenAuthentication, ))
+@authentication_classes((TokenAuthentication,))
 def update_account_view(request):
     try:
         account = request.user
@@ -188,7 +184,7 @@ def does_account_exist_view(request):
         email = request.GET['email'].lower()
         data = {}
         try:
-            account = Account.objects.get(email=email)
+            Account.objects.get(email=email)
             data['response'] = 'account with email: {email} exists'.format(email=email)
         except Account.DoesNotExist:
             data['response'] = "Account does not exist"
