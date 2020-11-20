@@ -14,6 +14,7 @@ from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
@@ -108,6 +109,10 @@ class PostView(ModelViewSet):
         comments = []
         for comment in post.comments.all():
             comments.append(comment.author.username)
+        if post.pet_image:
+            image_src = str(post.pet_image) + settings.MEDIA_URL
+        else:
+            image_src = None
         data = {
             'id': pk,
             'title': post.title,
@@ -116,7 +121,7 @@ class PostView(ModelViewSet):
             'tags': post.tags,
             'author': post.tags,
             'comments': comments,
-            'pet_image': post.pet_image or None,
+            'pet_image': image_src,
             'kind': post.kind
         }
         return Response(data=data, status=status.HTTP_200_OK)
@@ -128,5 +133,4 @@ class PostView(ModelViewSet):
         except Post.DoesNotExist:
             return Response(data={'object with id:{} does not exist'.format(pk)}, status=status.HTTP_404_NOT_FOUND)
         self.perform_destroy(post)
-        print('hi')
         return Response(data={'object deleted successfully'}, status=status.HTTP_200_OK)

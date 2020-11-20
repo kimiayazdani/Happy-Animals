@@ -40,7 +40,6 @@ class PostSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        print(validated_data)
         post = Post.objects.create(
             **validated_data
         )
@@ -51,7 +50,6 @@ class PostUpdateSerializer(serializers.ModelSerializer):
     """
         this serializer used for PATCH request
     """
-    delete = serializers.BooleanField(write_only=True, default=False)
 
     class Meta:
         model = Post
